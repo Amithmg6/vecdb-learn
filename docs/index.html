@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Databases: The Future of Data</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f8f8; /* Lighter background to match reference */
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .header-nav .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+        .header-nav .nav-links a {
+            margin-left: 1.5rem;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s ease-in-out;
+        }
+        .header-nav .nav-links a:hover {
+            color: #4f46e5;
+        }
+        .main-hero {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            background-color: #ffffff;
+            margin-bottom: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .main-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #1f2937;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .main-hero p {
+            font-size: 1.25rem;
+            color: #4b5563;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .section-title {
+            font-size: 2.25rem; /* Slightly smaller for content sections */
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            text-align: left; /* Align left to match reference */
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem; /* Increased padding */
+            margin-bottom: 2rem;
+        }
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #f9fafb;
+            border-radius: 0.5rem;
+            padding: 0 1.5rem;
+            margin-top: 0.5rem;
+        }
+        .dropdown-content.show {
+            max-height: 500px;
+            transition: max-height 0.5s ease-in;
+        }
+        .dropdown-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 1rem 0;
+            font-weight: 600;
+            color: #1f2937;
+            cursor: pointer;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .dropdown-button:hover {
+            color: #4f46e5;
+        }
+        .dropdown-button svg {
+            transition: transform 0.3s ease;
+        }
+        .dropdown-button.active svg {
+            transform: rotate(180deg);
+        }
+        a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+        }
+        ol {
+            list-style-type: decimal;
+            margin-left: 1.5rem;
+        }
+        .compare-table th, .compare-table td {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            text-align: left;
+        }
+        .compare-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        footer {
+            margin-top: auto; /* Pushes footer to the bottom */
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="header-nav">
+        <div class="logo">VectorDB Explorer</div>
+        <nav class="nav-links">
+            <a href="#introduction">Introduction</a>
+            <a href="#purpose">Purpose</a>
+            <a href="#applications">Applications</a>
+            <a href="#available-databases">Available DBs</a>
+            <a href="#architecture">Architecture</a>
+            <a href="#comparison">Compare</a>
+            <a href="#use-cases">Use Cases</a>
+        </nav>
+    </header>
+
+    <main class="container py-8">
+        <!-- Main Hero Section -->
+        <section class="main-hero">
+            <h1>Understanding Vector Databases</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-600">
+                Welcome to the Vector Database Explorer, your central hub for understanding how these powerful data stores are revolutionizing AI applications. Discover how numerical representations of data are powering intelligent search, recommendations, and large language models.
+            </p>
+        </section>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="card">
+            <h2 class="section-title">Introduction: A Brief History of Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                Vector databases are revolutionizing how we interact with and extract insights from unstructured data. From powering intelligent chatbots to enhancing search engines, their ability to understand meaning and context is at the forefront of AI-driven applications.
+            </p>
+            <p class="text-lg leading-relaxed mb-4">
+                The concept of organizing and querying data based on numerical representations (vectors) has evolved alongside advancements in machine learning and data retrieval. While the term "vector database" is relatively new, the underlying principles have roots in earlier database and information retrieval research:
+            </p>
+            <ul class="list-disc list-inside text-lg leading-relaxed mb-4">
+                <li>
+                    <strong class="font-semibold">1960s-1970s: Early Database Systems</strong> - Foundations of relational databases were laid, introducing structured data management.
+                </li>
+                <li>
+                    <strong class="font-semibold">1980s-1990s: Spatial Databases</strong> - Emergence of databases handling spatial data (maps, geographical information) using geometric and vector-based representations for efficient queries.
+                </li>
+                <li>
+                    <strong class="font-semibold">2000s: Content-Based Image Retrieval (CBIR)</strong> - Vector databases gained prominence in CBIR systems, using vector representations of images for similarity searches based on visual content.
+                </li>
+                <li>
+                    <strong class="font-semibold">2010s: Advances in Machine Learning & Embeddings</strong> - The rise of machine learning, especially deep learning, made vector representations (embeddings) prevalent for words, sentences, and documents. This era saw the demonstration of "vector arithmetic" with word2vec (e.g., "King" - "Man" + "Woman" = "Queen").
+                </li>
+                <li>
+                    <strong class="font-semibold">2010s-Present: General-Purpose Vector Databases</strong> - Increased focus on developing specialized vector databases to handle a wide range of vector data beyond just spatial or image data. This is where the modern "vector database" truly comes into its own.
+                </li>
+            </ul>
+            <p class="text-lg leading-relaxed">
+                For a more detailed historical overview, you can explore resources like <a href="https://www.zenoss.com/blog/ai-explainer-whats-our-vector-victor" target="_blank" class="text-indigo-600 hover:underline">Zenoss's AI Explainer on Vector Databases</a> and <a href="https://www.weka.io/learn/guide/ai-ml/vector-dabase/" target="_blank" class="text-indigo-600 hover:underline">WEKA's comprehensive guide</a>.
+            </p>
+        </section>
+
+        <!-- Purpose Section -->
+        <section id="purpose" class="card">
+            <h2 class="section-title">Purpose of Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                The primary purpose of a vector database is to efficiently <strong class="font-semibold">store, index, and query vector embeddings</strong>. These embeddings are numerical representations of various data types (text, images, audio, video, etc.) that capture their semantic meaning and contextual relationships.
+            </p>
+            <p class="text-lg leading-relaxed mb-4">
+                Unlike traditional databases that excel at exact matches based on keywords or structured schemas, vector databases are designed for:
+            </p>
+            <ul class="list-disc list-inside text-lg leading-relaxed mb-4">
+                <li>
+                    <strong class="font-semibold">Semantic Search:</strong> Finding data based on its meaning or similarity, rather than just exact keyword matches. This allows for more intuitive and human-like search experiences.
+                </li>
+                <li>
+                    <strong class="font-semibold">High-Dimensional Data Management:</strong> Handling data points in high-dimensional spaces, where traditional indexing methods become inefficient (the "curse of dimensionality").
+                </li>
+                <li>
+                    <strong class="font-semibold">Similarity Search (Nearest Neighbor Search):</strong> Quickly identifying data points that are "similar" to a given query vector using various distance metrics (e.g., cosine similarity, Euclidean distance, dot product).
+                </li>
+                <li>
+                    <strong class="font-semibold">Enabling AI/ML Applications:</strong> Serving as a crucial component for modern AI and machine learning applications that rely on understanding the relationships and context within unstructured data.
+                </li>
+                <li>
+                    <strong class="font-semibold">Overcoming LLM Limitations:</strong> Providing large language models (LLMs) with external knowledge and context, preventing "hallucinations," enabling real-time updates, and allowing them to access proprietary data.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Applications Section -->
+        <section id="applications" class="card">
+            <h2 class="section-title">Applications of Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                Vector databases are a foundational technology for a wide array of cutting-edge applications:
+            </p>
+            <ul class="list-disc list-inside text-lg leading-relaxed mb-4">
+                <li><strong class="font-semibold">Semantic Search:</strong> Intelligent search engines, document retrieval.</li>
+                <li><strong class="font-semibold">Recommendation Systems:</strong> Suggesting products, movies, music, or content.</li>
+                <li><strong class="font-semibold">Retrieval-Augmented Generation (RAG):</strong> Enhancing LLM accuracy and relevance.</li>
+                <li><strong class="font-semibold">Image and Video Recognition/Search:</strong> Visual search, content moderation.</li>
+                <li><strong class="font-semibold">Natural Language Processing (NLP):</strong> Powering chatbots, virtual assistants, sentiment analysis.</li>
+                <li><strong class="font-semibold">Anomaly and Fraud Detection:</strong> Identifying unusual patterns in transactions or network activity.</li>
+                <li><strong class="font-semibold">Personalization:</strong> Tailoring user experiences across various platforms.</li>
+                <li><strong class="font-semibold">Drug Discovery and Genomics:</strong> Accelerating research by finding similar chemical compounds or genetic patterns.</li>
+                <li><strong class="font-semibold">Autonomous Vehicles:</strong> Processing sensor data in real-time for navigation and obstacle detection.</li>
+                <li><strong class="font-semibold">Healthcare:</strong> Patient similarity analysis, personalized treatment recommendations.</li>
+            </ul>
+        </section>
+
+        <!-- Available Vector Databases Section -->
+        <section id="available-databases" class="card">
+            <h2 class="section-title">Available Vector Databases in the Market</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                The vector database landscape is rapidly evolving, with both specialized and general-purpose databases offering vector capabilities. Click on each to learn more:
+            </p>
+
+            <div class="space-y-4">
+                <!-- Pinecone -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('pinecone-details')">
+                        <span>Pinecone</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="pinecone-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">Cloud-native, fully managed vector database designed for high-performance similarity search. It uses HNSW (Hierarchical Navigable Small World) for indexing and offers features like namespaces for multi-tenancy and metadata filtering.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Serverless and automatic indexing optimization.</li>
+                                <li>Real-time search capabilities.</li>
+                                <li>Seamless integration with popular ML frameworks.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Primarily a managed SaaS offering, focusing purely on vector search with minimal operational overhead for users.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Milvus -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('milvus-details')">
+                        <span>Milvus</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="milvus-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">Open-source vector database built for large-scale similarity search and AI applications. It supports a wide range of index types including FLAT, IVF_FLAT, IVF_PQ, IVF_SQ8, HNSW, and SCANN. Designed for scalability with a distributed architecture.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Distributed and cloud-native architecture.</li>
+                                <li>Supports hybrid search (vector + metadata filtering).</li>
+                                <li>Robust community support and highly scalable.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Open-source and highly flexible in terms of deployment and the variety of index types it supports.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weaviate -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('weaviate-details')">
+                        <span>Weaviate</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="weaviate-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">Open-source, cloud-native vector database that also functions as a vector search engine and knowledge graph. It uses HNSW for indexing and offers modules for data import, vectorization (e.g., integrating with OpenAI, HuggingFace), and filtering.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Strong semantic search capabilities.</li>
+                                <li>Real-time data ingestion and robust support for multimodal data.</li>
+                                <li>Features a powerful GraphQL API for data interaction.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Integrates vector search with a GraphQL API and supports an object-oriented approach for data modeling, making it versatile for complex data relationships.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Qdrant -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('qdrant-details')">
+                        <span>Qdrant</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="qdrant-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">Open-source vector similarity search engine and database, written in Rust. It utilizes HNSW for efficient ANN search and offers extensive filtering support with a "payload" attached to vectors.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Exceptional performance and customizable distance metrics.</li>
+                                <li>Strong filtering capabilities for precise search results.</li>
+                                <li>Designed as a production-ready service.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Focuses heavily on performance and filtering capabilities, offering a lightweight yet powerful solution for vector search.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chroma -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('chroma-details')">
+                        <span>Chroma</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="chroma-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">Open-source, AI-native embedding database. It aims to simplify the creation of LLM applications by making knowledge pluggable. Uses HNSW for indexing.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>User-friendly and designed specifically for LLM workflows.</li>
+                                <li>Emphasizes simplicity and seamless integration with AI development tools.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Often preferred for smaller-scale projects or local development due to its ease of use and focus on developer experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pgvector -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('pgvector-details')">
+                        <span>pgvector (PostgreSQL Extension)</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="pgvector-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">An open-source extension for PostgreSQL that adds vector data type and nearest-neighbor search capabilities. It can use HNSW and IVF-Flat indexing.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Integrates vector search directly into an existing relational database.</li>
+                                <li>Leverages PostgreSQL's renowned robustness and extensive ecosystem.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Not a standalone vector database but an extension, making it ideal if you already use PostgreSQL and need basic to moderate vector search capabilities without introducing a new database system.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Elasticsearch -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('elasticsearch-details')">
+                        <span>Elasticsearch (with Vector Search)</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="elasticsearch-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">A distributed, RESTful search and analytics engine. While primarily a full-text search engine, recent versions have added native vector search capabilities, allowing it to store and search vector embeddings alongside other data. It uses Lucene's underlying vector search features.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Combines powerful full-text search with vector search.</li>
+                                <li>Offers robust analytics and is highly scalable.</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">A versatile tool that offers vector search as part of a broader feature set, rather than being a dedicated vector database, suitable for applications needing both full-text and semantic search.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MongoDB -->
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="dropdown-button p-4" onclick="toggleDropdown('mongodb-details')">
+                        <span>MongoDB (Atlas Vector Search)</span>
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="mongodb-details" class="dropdown-content">
+                        <div class="py-4">
+                            <h3 class="font-semibold text-xl mb-2">Architecture:</h3>
+                            <p class="mb-2">A general-purpose NoSQL document database that has integrated vector search capabilities within its Atlas cloud platform. It uses HNSW for indexing.</p>
+                            <h3 class="font-semibold text-xl mb-2">Key Features:</h3>
+                            <ul class="list-disc list-inside mb-2">
+                                <li>Combines the flexibility of a document database with vector search.</li>
+                                <li>Allows for powerful hybrid queries (combining metadata filtering with vector similarity).</li>
+                            </ul>
+                            <h3 class="font-semibold text-xl mb-2">Differences:</h3>
+                            <p class="mb-2">Leverages an existing, widely adopted database for vector search, offering a unified data platform for both structured and unstructured data.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section id="comparison" class="card">
+            <h2 class="section-title">Compare Vector Databases</h2>
+            <div class="mb-6">
+                <label for="db-select" class="block text-lg font-medium text-gray-700 mb-2">Select up to 3 databases to compare:</label>
+                <div class="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <select id="db-select" class="mt-1 block w-full sm:w-1/2 md:w-1/3 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">-- Select a Database --</option>
+                        <!-- Options will be populated by JS -->
+                    </select>
+                    <button id="add-to-compare" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Add for Comparison
+                    </button>
+                </div>
+            </div>
+
+            <div id="selected-dbs-container" class="mb-6 flex flex-wrap gap-2">
+                <!-- Selected databases will be displayed here -->
+            </div>
+
+            <div id="comparison-table-container">
+                <!-- Comparison table will be generated here -->
+                <p id="comparison-message" class="text-center text-gray-600">Select databases above to see a comparison.</p>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="card">
+            <h2 class="section-title">Architecture of Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                While specific implementations vary, most vector databases share a common architectural pattern designed for efficient high-dimensional similarity search:
+            </p>
+            <ol class="list-decimal list-inside text-lg leading-relaxed mb-4">
+                <li>
+                    <strong class="font-semibold">Vectorization/Embedding Generation:</strong> Raw data (text, images, etc.) is transformed into numerical vectors (embeddings) using machine learning models (e.g., word2vec, BERT, image encoders). This process happens <em class="italic">before</em> data is stored in the vector database.
+                </li>
+                <li>
+                    <strong class="font-semibold">Storage Layer:</strong> Stores the high-dimensional vector embeddings, often alongside associated metadata (e.g., timestamps, original text, category). Storage can be in-memory for low latency or disk-based for larger datasets.
+                </li>
+                <li>
+                    <strong class="font-semibold">Indexing Layer (ANN Algorithms):</strong> This is the core of a vector database's efficiency. Since exact nearest neighbor search in high dimensions is computationally expensive, Approximate Nearest Neighbor (ANN) algorithms are used. These algorithms create data structures that allow for rapid, albeit approximate, retrieval of similar vectors. Common ANN algorithms include:
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">HNSW (Hierarchical Navigable Small World):</strong> Builds a multi-layered graph where each point connects to its nearest neighbors. It's known for its balance of speed and accuracy.</li>
+                        <li><strong class="font-semibold">IVF (Inverted File Index):</strong> Groups vectors into clusters, then searches only relevant clusters.</li>
+                        <li><strong class="font-semibold">PQ (Product Quantization):</strong> Compresses vectors to reduce memory footprint and speed up distance calculations.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Similarity Measurement:</strong> Algorithms to calculate the "distance" or "similarity" between vectors. Common metrics include:
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Cosine Similarity:</strong> Measures the angle between two vectors, indicating directional similarity.</li>
+                        <li><strong class="font-semibold">Euclidean Distance:</strong> Measures the straight-line distance between two points in vector space.</li>
+                        <li><strong class="font-semibold">Dot Product:</strong> Measures the projection of one vector onto another.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Query Engine:</strong> Handles incoming queries, which are also vectorized. It uses the indexing layer and similarity metrics to find and return the 'k' most similar vectors (k-nearest neighbors) along with their metadata. Many databases also support hybrid queries, combining vector similarity with traditional metadata filtering.
+                </li>
+                <li>
+                    <strong class="font-semibold">Scalability and Resilience:</strong> Vector databases are designed to be highly scalable (horizontal scaling across multiple nodes) and fault-tolerant to handle massive datasets and high query loads. This often involves sharding, replication, and load balancing.
+                </li>
+            </ol>
+        </section>
+
+        <!-- Differences Section -->
+        <section id="differences" class="card">
+            <h2 class="section-title">Differences Between Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                The key differences among available vector databases lie in:
+            </p>
+            <ul class="list-disc list-inside text-lg leading-relaxed mb-4">
+                <li><strong class="font-semibold">Open-Source vs. Managed Service:</strong> Choice between flexibility/control and ease of use/operational overhead.</li>
+                <li><strong class="font-semibold">Core Focus:</strong> Purely dedicated vector databases vs. general-purpose databases with integrated vector capabilities.</li>
+                <li><strong class="font-semibold">Indexing Algorithms Supported:</strong> The range and sophistication of ANN algorithms available for tuning.</li>
+                <li><strong class="font-semibold">Query Capabilities:</strong> The depth of hybrid queries (vector + metadata filtering) and support for various query types.</li>
+                <li><strong class="font-semibold">Ecosystem Integration:</strong> How well they integrate with popular ML frameworks, LLMs, and cloud platforms.</li>
+                <li><strong class="font-semibold">Deployment Options:</strong> On-premises, Docker, Kubernetes, or specific cloud provider integrations.</li>
+                <li><strong class="font-semibold">Language Support and APIs:</strong> Availability of SDKs and APIs in different programming languages.</li>
+                <li><strong class="font-semibold">Scalability and Performance Benchmarks:</strong> Their demonstrated ability to handle massive datasets and maintain low latency.</li>
+            </ul>
+        </section>
+
+        <!-- Use Cases Section -->
+        <section id="use-cases" class="card">
+            <h2 class="section-title">Key Use Cases of Vector Databases</h2>
+            <p class="text-lg leading-relaxed mb-4">
+                Vector databases are transforming various industries and applications, enabling intelligent and context-aware systems. Some prominent use cases include:
+            </p>
+            <ol class="list-decimal list-inside text-lg leading-relaxed mb-4">
+                <li>
+                    <strong class="font-semibold">Generative AI and Large Language Models (LLMs):</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Retrieval Augmented Generation (RAG):</strong> Enhancing LLM factual accuracy and contextual relevance by providing external, up-to-date information.</li>
+                        <li><strong class="font-semibold">LLM Memory:</strong> Storing conversation history and user preferences for personalized and coherent interactions.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Semantic Search:</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Intelligent Search Engines:</strong> Understanding query intent beyond keywords.</li>
+                        <li><strong class="font-semibold">Document Retrieval:</strong> Finding highly relevant documents in large knowledge bases.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Recommendation Systems:</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Content Recommendations:</strong> Suggesting movies, music, news based on user preferences.</li>
+                        <li><strong class="font-semibold">Product Recommendations:</strong> E-commerce sites suggesting similar products.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Image and Video Analysis:</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Visual Search:</strong> Searching for images by providing another image as a query.</li>
+                        <li><strong class="font-semibold">Content Moderation:</strong> Automatically flagging inappropriate visual content.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Anomaly Detection:</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Fraud Detection:</strong> Identifying unusual patterns in financial transactions.</li>
+                        <li><strong class="font-semibold">Cybersecurity:</strong> Detecting new or evolving threats in network traffic.</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong class="font-semibold">Drug Discovery and Genomics:</strong>
+                    <ul class="list-disc list-inside ml-8 mt-2">
+                        <li><strong class="font-semibold">Compound Similarity:</strong> Identifying similar chemical compounds for drug development.</li>
+                        <li><strong class="font-semibold">Genetic Pattern Recognition:</strong> Analyzing genomic sequences for research.</li>
+                    </ul>
+                </li>
+            </ol>
+            <p class="text-lg leading-relaxed mt-4">
+                Vector databases are no longer just a niche technology; they are becoming an essential component of the modern data stack, empowering a new generation of intelligent applications across industries.
+            </p>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6 mt-8 rounded-t-xl">
+        <div class="container text-center">
+            <p>&copy; 2025 Vector Databases. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for dropdown functionality
+        function toggleDropdown(id) {
+            const element = document.getElementById(id);
+            const button = element.previousElementSibling; // Get the button element
+            element.classList.toggle('show');
+            button.classList.toggle('active'); // Toggle active class on button for arrow rotation
+        }
+
+        // Data for comparison table
+        const vectorDatabasesData = {
+            "pinecone": {
+                name: "Pinecone",
+                type: "Managed Service (SaaS)",
+                indexing: "HNSW",
+                hybridSearch: "Yes (metadata filters, sparse & dense hybrid search)",
+                coreFocus: "High-performance similarity search, zero ops for users."
+            },
+            "milvus": {
+                name: "Milvus",
+                type: "Open-Source / Managed Cloud (Zilliz Cloud)",
+                indexing: "FLAT, IVF_FLAT, IVF_PQ, IVF_SQ8, HNSW, SCANN",
+                hybridSearch: "Yes",
+                coreFocus: "Large-scale similarity search, highly flexible and scalable."
+            },
+            "weaviate": {
+                name: "Weaviate",
+                type: "Open-Source / Managed Cloud",
+                indexing: "HNSW",
+                hybridSearch: "Yes (vector + filters + BM25)",
+                coreFocus: "Semantic search engine, knowledge graph capabilities, GraphQL API."
+            },
+            "qdrant": {
+                name: "Qdrant",
+                type: "Open-Source / Managed Cloud",
+                indexing: "HNSW",
+                hybridSearch: "Yes (payload filters)",
+                coreFocus: "High performance, strong filtering capabilities, written in Rust."
+            },
+            "chroma": {
+                name: "Chroma",
+                type: "Open-Source / Serverless Beta",
+                indexing: "HNSW",
+                hybridSearch: "Partial (vector + doc IDs)",
+                coreFocus: "AI-native embedding database, simplifies LLM application development."
+            },
+            "pgvector": {
+                name: "pgvector (PostgreSQL Extension)",
+                type: "Open-Source (PostgreSQL Extension)",
+                indexing: "HNSW, IVF-Flat",
+                hybridSearch: "Yes (SQL WHERE + <-> operator)",
+                coreFocus: "Integrates vector search into existing PostgreSQL databases."
+            },
+            "elasticsearch": {
+                name: "Elasticsearch (with Vector Search)",
+                type: "Open-Source / Managed Cloud",
+                indexing: "Lucene's vector search features",
+                hybridSearch: "Yes (combines full-text and vector search)",
+                coreFocus: "Distributed search and analytics engine with vector capabilities."
+            },
+            "mongodb": {
+                name: "MongoDB (Atlas Vector Search)",
+                type: "Managed Cloud (NoSQL Database)",
+                indexing: "HNSW",
+                hybridSearch: "Yes (combines document features with vector similarity)",
+                coreFocus: "Unified data platform for structured and unstructured data with vector search."
+            }
+        };
+
+        let selectedDatabases = []; // Stores IDs of selected databases for comparison
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const dbSelect = document.getElementById('db-select');
+            const addToCompareButton = document.getElementById('add-to-compare');
+            const selectedDbsContainer = document.getElementById('selected-dbs-container');
+            const comparisonTableContainer = document.getElementById('comparison-table-container');
+            const comparisonMessage = document.getElementById('comparison-message');
+
+            // Populate select options
+            function populateSelectOptions() {
+                for (const id in vectorDatabasesData) {
+                    const option = document.createElement('option');
+                    option.value = id;
+                    option.textContent = vectorDatabasesData[id].name;
+                    dbSelect.appendChild(option);
+                }
+            }
+
+            // Render selected databases as tags
+            function renderSelectedDatabases() {
+                selectedDbsContainer.innerHTML = '';
+                if (selectedDatabases.length === 0) {
+                    selectedDbsContainer.innerHTML = '<p class="text-gray-600">No databases selected for comparison.</p>';
+                } else {
+                    selectedDatabases.forEach(dbId => {
+                        const dbName = vectorDatabasesData[dbId].name;
+                        const tag = document.createElement('span');
+                        tag.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800';
+                        tag.innerHTML = `${dbName} <button type="button" class="ml-2 -mr-0.5 h-4 w-4 rounded-full inline-flex items-center justify-center text-indigo-600 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" onclick="removeFromCompare('${dbId}')">
+                            <span class="sr-only">Remove ${dbName}</span>
+                            <svg class="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M1 1l6 6m0-6L1 7" />
+                            </svg>
+                        </button>`;
+                        selectedDbsContainer.appendChild(tag);
+                    });
+                }
+            }
+
+            // Render comparison table
+            function renderComparisonTable() {
+                if (selectedDatabases.length === 0) {
+                    comparisonTableContainer.innerHTML = '<p id="comparison-message" class="text-center text-gray-600">Select databases above to see a comparison.</p>';
+                    return;
+                }
+
+                comparisonTableContainer.innerHTML = ''; // Clear previous table
+                const table = document.createElement('table');
+                table.className = 'compare-table';
+
+                // Table Header
+                const thead = document.createElement('thead');
+                let headerHtml = '<tr><th>Feature</th>';
+                selectedDatabases.forEach(dbId => {
+                    headerHtml += `<th>${vectorDatabasesData[dbId].name}</th>`;
+                });
+                headerHtml += '</tr>';
+                thead.innerHTML = headerHtml;
+                table.appendChild(thead);
+
+                // Table Body
+                const tbody = document.createElement('tbody');
+                const features = [
+                    { key: 'type', name: 'Type' },
+                    { key: 'indexing', name: 'Primary Indexing' },
+                    { key: 'hybridSearch', name: 'Hybrid Search' },
+                    { key: 'coreFocus', name: 'Core Focus' }
+                ];
+
+                features.forEach(feature => {
+                    let rowHtml = `<tr><td><strong class="font-semibold">${feature.name}</strong></td>`;
+                    selectedDatabases.forEach(dbId => {
+                        rowHtml += `<td>${vectorDatabasesData[dbId][feature.key] || 'N/A'}</td>`;
+                    });
+                    rowHtml += '</tr>';
+                    tbody.innerHTML += rowHtml;
+                });
+                table.appendChild(tbody);
+                comparisonTableContainer.appendChild(table);
+            }
+
+            // Add to compare logic
+            addToCompareButton.addEventListener('click', () => {
+                const selectedId = dbSelect.value;
+                if (selectedId && !selectedDatabases.includes(selectedId)) {
+                    if (selectedDatabases.length < 3) {
+                        selectedDatabases.push(selectedId);
+                        renderSelectedDatabases();
+                        renderComparisonTable();
+                        dbSelect.value = ""; // Reset dropdown
+                    } else {
+                        // In a real app, you might show a more user-friendly message box
+                        console.log("You can only compare up to 3 databases at a time.");
+                    }
+                }
+            });
+
+            // Global function to remove from compare (called from button in tag)
+            window.removeFromCompare = (dbId) => {
+                selectedDatabases = selectedDatabases.filter(id => id !== dbId);
+                renderSelectedDatabases();
+                renderComparisonTable();
+            };
+
+            // Initial render
+            populateSelectOptions();
+            renderSelectedDatabases(); // To show "No databases selected" initially
+        });
+    </script>
+</body>
+</html>
